@@ -17,7 +17,9 @@ use App\Http\Controllers\Receptionniste\ClientController as ReceptionClient;
 use App\Http\Controllers\Receptionniste\FactureController as ReceptionFacture;
 use App\Http\Controllers\Client\DashboardController as ClientDashboard;
 
-Route::get('/', fn() => redirect()->route('login'));
+Route::get('/', function () {
+    return view('welcome');
+});
 
 // Auth
 Route::middleware('guest')->group(function () {
@@ -95,4 +97,12 @@ Route::prefix('client')
         Route::get('/reservations/create', [\App\Http\Controllers\Client\ReservationController::class, 'create'])->name('reservations.create');
         Route::post('/reservations', [\App\Http\Controllers\Client\ReservationController::class, 'store'])->name('reservations.store');
         Route::get('/factures', [\App\Http\Controllers\Client\FactureController::class, 'index'])->name('factures.index');
-    });
+        Route::get('/factures/{facture}/pdf', [\App\Http\Controllers\Client\FactureController::class, 'pdf'])->name('factures.pdf');
+        Route::get('/factures/{facture}/detail', [\App\Http\Controllers\Client\FactureController::class, 'detail'])->name('factures.detail');
+    // Paiement
+Route::get('/paiements/{facture}', [\App\Http\Controllers\Client\PaiementController::class, 'index'])->name('paiements.index');
+Route::post('/paiements/{facture}/initier', [\App\Http\Controllers\Client\PaiementController::class, 'initier'])->name('paiements.initier');
+Route::get('/paiements/{facture}/confirmer', [\App\Http\Controllers\Client\PaiementController::class, 'confirmer'])->name('paiements.confirmer');
+Route::post('/paiements/{facture}/valider', [\App\Http\Controllers\Client\PaiementController::class, 'valider'])->name('paiements.valider');
+Route::get('/paiements/{facture}/recu', [\App\Http\Controllers\Client\PaiementController::class, 'recu'])->name('paiements.recu');
+        });

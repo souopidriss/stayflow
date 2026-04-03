@@ -154,6 +154,13 @@
 <a href="{{ route('reception.factures.index') }}" class="nav-item">
     <i class="fas fa-file-invoice"></i> Factures
 </a>
+<span class="nav-section">Session</span>
+ <form method="POST" action="{{ route('logout') }}" >
+                @csrf
+                <button type="submit" class="nav-item" style="color:rgb(255, 0, 0);">
+                    <i class="fas fa-file-invoice"></i> Déconnexion
+                </button>
+            </form>
 </div>
 
 <div class="main">
@@ -169,12 +176,7 @@
                     <div class="user-role">Réceptionniste</div>
                 </div>
             </div>
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button type="submit" class="btn-logout">
-                    <i class="fas fa-sign-out-alt"></i> Déconnexion
-                </button>
-            </form>
+           
         </div>
     </div>
 

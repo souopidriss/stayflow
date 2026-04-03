@@ -8,19 +8,20 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('paiements', function (Blueprint $table) {
-            $table->id('id_paiement');
-            $table->foreignId('id_facture')->constrained('factures', 'id_facture')->onDelete('restrict');
-            $table->date('date_paiement');
-            $table->decimal('montant', 10, 2);
-            $table->enum('mode_paiement', ['especes', 'carte', 'mobile_money', 'virement', 'cheque']);
-            $table->enum('statut', ['en_attente', 'valide', 'echoue'])->default('en_attente');
+        Schema::create('otp_paiements', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('id_facture')->constrained('factures', 'id_facture')->onDelete('cascade');
+            $table->string('telephone');
+            $table->string('code_otp', 6);
+            $table->enum('operateur', ['mtn', 'orange']);
+            $table->boolean('utilise')->default(false);
+            $table->timestamp('expire_at');
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('paiements');
+        Schema::dropIfExists('otp_paiements');
     }
 };

@@ -77,6 +77,16 @@
         }
         .user-name { font-size: 14px; font-weight: 600; color: #333; }
         .user-role { font-size: 11px; color: #888; }
+        .actions { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+        .btn-action {
+            padding: 6px 12px; border-radius: 8px;
+            text-decoration: none; font-size: 12px;
+            font-weight: 600; display: inline-flex;
+            align-items: center; gap: 4px;
+        }
+        .btn-voir    { background: #e3f2fd; color: #1E88E5; }
+        .btn-pdf     { background: #e8f5e9; color: #43a047; }
+        .btn-payer   { background: linear-gradient(135deg,#1a1a2e,#29B6F6); color: white; }
     </style>
 </head>
 <body>
@@ -122,59 +132,91 @@
     </div>
 
     <div class="card">
-        <table>
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Chambre</th>
-                    <th>Séjour</th>
-                    <th>Date facture</th>
-                    <th>Montant</th>
-                    <th>Statut</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse($factures as $facture)
-                <tr>
-                    <td>{{ $facture->id_facture }}</td>
-                    <td>
-                        <strong>N° {{ $facture->reservation->chambre->numero }}</strong><br>
-                        <small style="color:#888">
-                            {{ $facture->reservation->chambre->typeChambre->libelle_type }}
-                        </small>
-                    </td>
-                    <td>
-                        {{ $facture->reservation->date_arrivee->format('d/m/Y') }}
-                        →
-                        {{ $facture->reservation->date_depart->format('d/m/Y') }}
-                    </td>
-                    <td>{{ $facture->date_facture->format('d/m/Y') }}</td>
-                    <td>
-                        <strong>
-                            {{ number_format($facture->montant_total, 0, ',', ' ') }} FCFA
-                        </strong>
-                    </td>
-                    <td>
-                        @if($facture->statut == 'payee')
-                            <span class="badge badge-success">Payée</span>
-                        @elseif($facture->statut == 'partielle')
-                            <span class="badge badge-warning">Partielle</span>
-                        @else
-                            <span class="badge badge-danger">Non payée</span>
-                        @endif
-                    </td>
-                </tr>
-                @empty
-                <tr>
-                    <td colspan="6" style="text-align:center;color:#888;padding:48px">
-                        <i class="fas fa-file-invoice"
-                           style="font-size:32px;display:block;margin-bottom:12px"></i>
-                        Aucune facture pour le moment
-                    </td>
-                </tr>
-                @endforelse
-            </tbody>
-        </table>
+     <table>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Chambre</th>
+            <th>Séjour</th>
+            <th>Date facture</th>
+            <th>Montant</th>
+            <th>Statut</th>
+            <th>Actions</th>
+            <th>Historique</th>
+        </tr>
+    </thead>
+    <tbody>
+        @forelse($factures as $facture)
+        <tr>
+            <td>{{ $facture->id_facture }}</td>
+            <td>
+                <strong>N° {{ $facture->reservation->chambre->numero }}</strong><br>
+                <small style="color:#888">
+                    {{ $facture->reservation->chambre->typeChambre->libelle_type }}
+                </small>
+            </td>
+            <td>
+                {{ $facture->reservation->date_arrivee->format('d/m/Y') }}
+                →
+                {{ $facture->reservation->date_depart->format('d/m/Y') }}
+            </td>
+            <td>{{ $facture->date_facture->format('d/m/Y') }}</td>
+            <td>
+                <strong>
+                    {{ number_format($facture->montant_total, 0, ',', ' ') }} FCFA
+                </strong>
+            </td>
+            <td>
+                @if($facture->statut == 'payee')
+                    <span class="badge badge-success">Payée</span>
+                @elseif($facture->statut == 'partielle')
+                    <span class="badge badge-warning">Partielle</span>
+                @else
+                    <span class="badge badge-danger">Non payée</span>
+                @endif
+            </td>
+            <td>
+                <div class="actions">
+                    <a href="{{ route('client.factures.detail', $facture->id_facture) }}"
+                       class="btn-action btn-voir">
+                        <i class="fas fa-eye"></i> Voir
+                    </a>
+                    @if($facture->statut != 'payee')
+                    <a href="{{ route('client.paiements.index', $facture->id_facture) }}"
+                       class="btn-action btn-payer">
+                        <i class="fas fa-mobile-alt"></i> Payer
+                    </a>
+                    @else
+                    <span style="color:#43a047;font-weight:600;font-size:12px">
+                        <i class="fas fa-check-circle"></i> Payée
+                    </span>
+                    @endif
+                </div>
+            </td>
+            <td>
+                @if($facture->statut == 'payee')
+                <a href="{{ route('client.factures.pdf', $facture->id_facture) }}"
+                   class="btn-action btn-pdf">
+                    <i class="fas fa-file-pdf"></i> Télécharger PDF
+                </a>
+                @else
+                <span style="color:#aaa;font-size:12px">
+                    <i class="fas fa-lock"></i> Disponible après paiement
+                </span>
+                @endif
+            </td>
+        </tr>
+        @empty
+        <tr>
+            <td colspan="8" style="text-align:center;color:#888;padding:48px">
+                <i class="fas fa-file-invoice"
+                   style="font-size:32px;display:block;margin-bottom:12px"></i>
+                Aucune facture pour le moment
+            </td>
+        </tr>
+        @endforelse
+    </tbody>
+</table>
     </div>
 </div>
 </body>

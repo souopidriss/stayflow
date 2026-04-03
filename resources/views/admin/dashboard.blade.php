@@ -180,6 +180,13 @@
 <span class="nav-section">Rapports</span>
 <a href="{{ route('admin.evaluations.index') }}" class="nav-item">
     <i class="fas fa-star"></i> Évaluations</a>
+    <span class="nav-section">Session</span>
+ <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit" class="nav-item" style="color:rgb(255, 0, 0);">
+                    <i class="fas fa-file-invoice"></i> Déconnexion
+                </button>
+            </form>
 </div>
 
 <!-- Main -->
@@ -197,12 +204,7 @@
                     <div class="user-role">Super Administrateur</div>
                 </div>
             </div>
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button type="submit" class="btn-logout">
-                    <i class="fas fa-sign-out-alt"></i> Déconnexion
-                </button>
-            </form>
+           
         </div>
     </div>
 

@@ -151,6 +151,7 @@
 <a href="{{ route('client.factures.index') }}" class="nav-item">
     <i class="fas fa-file-invoice"></i> Mes factures
 </a>
+
 <a href="#" class="nav-item">
     <i class="fas fa-star"></i> Mes évaluations
 </a>
@@ -161,6 +162,13 @@
 <a href="#" class="nav-item">
     <i class="fas fa-concierge-bell"></i> Nos services
 </a>
+<span class="nav-section">Session</span>
+ <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit" class="nav-item" style="color:rgb(255, 0, 0);">
+                    <i class="fas fa-file-invoice"></i> Déconnexion
+                </button>
+            </form>
 </div>
 
 <div class="main">
@@ -176,12 +184,7 @@
                     <div class="user-role">Client</div>
                 </div>
             </div>
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button type="submit" class="btn-logout">
-                    <i class="fas fa-sign-out-alt"></i> Déconnexion
-                </button>
-            </form>
+           
         </div>
     </div>
 

@@ -18,7 +18,7 @@ class Paiement extends Model
     ];
 
     protected $casts = [
-        'date_paiement' => 'date'
+        'date_paiement' => 'datetime'
     ];
 
     public function facture()
