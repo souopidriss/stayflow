@@ -154,6 +154,18 @@
 <a href="{{ route('reception.factures.index') }}" class="nav-item">
     <i class="fas fa-file-invoice"></i> Factures
 </a>
+  <span class="nav-section">Alertes</span>
+<a href="{{ route('reception.notifications.index') }}" class="nav-item"
+   style="position:relative">
+    <i class="fas fa-bell"></i> Notifications
+    <span id="notif-count" style="
+        background:#e53935;color:white;
+        border-radius:50%;width:20px;height:20px;
+        display:none;align-items:center;justify-content:center;
+        font-size:11px;font-weight:700;margin-left:auto">
+        0
+    </span>
+</a>
 <span class="nav-section">Session</span>
  <form method="POST" action="{{ route('logout') }}" >
                 @csrf
@@ -279,7 +291,26 @@
             @endforelse
         </div>
     </div>
-</div>
+</div>  
 
+   <script>
+function checkNotifications() {
+    fetch('{{ route("reception.notifications.count") }}')
+        .then(r => r.json())
+        .then(data => {
+            const badge = document.getElementById('notif-count');
+            if (data.count > 0) {
+                badge.textContent = data.count;
+                badge.style.display = 'flex';
+            } else {
+                badge.style.display = 'none';
+            }
+        })
+        .catch(() => {});
+}
+
+checkNotifications();
+setInterval(checkNotifications, 30000);
+</script>
 </body>
 </html>

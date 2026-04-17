@@ -68,6 +68,7 @@ class ReservationController extends Controller
         ]);
 
         return redirect()->route('client.reservations.index')
-            ->with('success', 'Réservation effectuée avec succès ! Nous vous contacterons pour confirmation.');
+            ->with('success', 'Réservation effectuée avec succès ! Nous vous contacterons pour confirmation. 
+            Apres que vous aillez reglez votre facture dans la session FACTURE');
     }
 }

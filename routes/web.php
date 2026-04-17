@@ -82,7 +82,14 @@ Route::prefix('reception')->middleware(['auth', 'role:receptionniste,super_admin
     Route::resource('factures', ReceptionFacture::class);
     Route::get('/factures/{facture}/pdf', [ReceptionFacture::class, 'pdf'])->name('factures.pdf');
     Route::patch('/factures/{facture}/payer', [ReceptionFacture::class, 'payer'])->name('factures.payer');
-});
+    
+    // Notifications
+    Route::get('/notifications', [\App\Http\Controllers\Receptionniste\NotificationController::class, 'index'])->name('notifications.index');
+    Route::patch('/notifications/{notification}/lu', [\App\Http\Controllers\Receptionniste\NotificationController::class, 'marquerLu'])->name('notifications.lu');
+    Route::patch('/notifications/tout-lu', [\App\Http\Controllers\Receptionniste\NotificationController::class, 'marquerToutLu'])->name('notifications.tout_lu');
+    Route::post('/notifications/{notification}/valider', [\App\Http\Controllers\Receptionniste\NotificationController::class, 'validerReservation'])->name('notifications.valider');
+    Route::get('/notifications/count', [\App\Http\Controllers\Receptionniste\NotificationController::class, 'getCount'])->name('notifications.count');
+    });
 
 // -----------------------------------------------
 // Routes Client

@@ -78,50 +78,56 @@ class PaiementController extends Controller
         return view('client.paiements.confirmer', compact('facture', 'otp'));
     }
 
-    public function valider(Request $request, Facture $facture)
-    {
-        $request->validate([
-            'code_otp' => 'required|string|size:6',
-        ], [
-            'code_otp.required' => 'Le code OTP est obligatoire.',
-            'code_otp.size'     => 'Le code OTP doit contenir 6 chiffres.',
-        ]);
+  public function valider(Request $request, Facture $facture)
+{
+    $request->validate([
+        'code_otp' => 'required|string|size:6',
+    ], [
+        'code_otp.required' => 'Le code OTP est obligatoire.',
+        'code_otp.size'     => 'Le code OTP doit contenir 6 chiffres.',
+    ]);
 
-        $otp = OtpPaiement::where('id_facture', $facture->id_facture)
-            ->where('utilise', false)
-            ->latest()
-            ->first();
+    $otp = OtpPaiement::where('id_facture', $facture->id_facture)
+        ->where('utilise', false)
+        ->latest()
+        ->first();
 
-        if (!$otp) {
-            return back()->withErrors(['code_otp' => 'Code OTP invalide.']);
-        }
-
-        if ($otp->isExpire()) {
-            return back()->withErrors(['code_otp' => 'Code OTP expiré. Veuillez recommencer.']);
-        }
-
-        if ($otp->code_otp !== $request->code_otp) {
-            return back()->withErrors(['code_otp' => 'Code OTP incorrect. Vérifiez et réessayez.']);
-        }
-
-        // Marquer OTP comme utilisé
-        $otp->update(['utilise' => true]);
-
-        // Enregistrer le paiement
-        Paiement::create([
-            'id_facture'    => $facture->id_facture,
-            'date_paiement' => now(),
-            'montant'       => $facture->montant_total,
-            'mode_paiement' => 'mobile_money',
-            'statut'        => 'valide',
-        ]);
-
-        // Mettre à jour la facture
-        $facture->update(['statut' => 'payee']);
-
-        return redirect()->route('client.paiements.recu', $facture->id_facture)
-            ->with('success', 'Paiement effectué avec succès !');
+    if (!$otp) {
+        return back()->withErrors(['code_otp' => 'Code OTP invalide.']);
     }
+
+    if ($otp->isExpire()) {
+        return back()->withErrors(['code_otp' => 'Code OTP expire. Veuillez recommencer.']);
+    }
+
+    if ($otp->code_otp !== $request->code_otp) {
+        return back()->withErrors(['code_otp' => 'Code OTP incorrect. Verifiez et reessayez.']);
+    }
+
+    // Marquer OTP comme utilisé
+    $otp->update(['utilise' => true]);
+
+    // Enregistrer le paiement
+    Paiement::create([
+        'id_facture'    => $facture->id_facture,
+        'date_paiement' => now(),
+        'montant'       => $facture->montant_total,
+        'mode_paiement' => 'mobile_money',
+        'statut'        => 'valide',
+    ]);
+
+    // Mettre à jour la facture
+    $facture->update(['statut' => 'payee']);
+
+    // Recharger la facture avec ses relations
+    $facture->load(['reservation.client', 'reservation.chambre']);
+
+    // Envoyer notification à la réceptionniste
+    \App\Models\Notification::notifierPaiement($facture);
+
+    return redirect()->route('client.paiements.recu', $facture->id_facture)
+        ->with('success', 'Paiement effectue avec succes !');
+}
 
     public function recu(Facture $facture)
     {

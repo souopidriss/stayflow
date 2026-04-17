@@ -107,7 +107,7 @@
                         <a href="{{ route('login') }}" class="btn theme_btn button_hover">Réserver</a>
                     </div>
                     <a href="#"><h4 class="sec_h4">Suite Junior </h4></a>
-                    <h5>45 000 FCFA<small>/nuit</small></h5>
+                    <h5> 45 000 FCFA<small>/nuit</small></h5>
                     <p><i class="fa fa-users"></i> 2 Personnes</p>
                 </div>
             </div>
@@ -129,11 +129,11 @@
             <img src="{{ asset('royal-master/image/room5.jpg') }}" alt="Deluxe Connectée">
             <a href="{{ route('login') }}" class="btn theme_btn button_hover">Réserver</a>
         </div>
-        <a href="#"><h4 class="sec_h4">Deluxe Connectée </h4></a>
+        <a href="#"><h4 class="sec_h4">De luxe Connectée </h4></a>
         <h5>30 000 FCFA<small>/nuit</small></h5>
-        <p><i class="fa fa-tablet"></i> Domotique incluse</p>
+        <p><i class="fa fa-tablet"></i> DomEStique incluse</p>
     </div>
-</div>
+</div> 
 
 <div class="col-lg-3 col-sm-6">
     <div class="accomodation_item text-center">
@@ -157,8 +157,8 @@
         <h5>20 000 FCFA<small>/nuit</small></h5>
         <p><i class="fa fa-laptop"></i> Espace Travail</p>
     </div>
-</div>
-
+ </div>
+ 
 <div class="col-lg-3 col-sm-6">
     <div class="accomodation_item text-center">
         <div class="hotel_img">
@@ -168,6 +168,109 @@
         <a href="#"><h4 class="sec_h4">Suite Penthouse </h4></a>
         <h5>120 000 FCFA<small>/nuit</small></h5>
         <p><i class="fa fa-star"></i> Vue Panoramique</p>
+    </div>
+</div>
+        </div>
+ 
+ <div class="container">
+        <div class="section_title text-center">
+            <h2 class="title_color">Les Avantages A Souscrit Un </h2>
+             <h2 class="title_color">Sejour A StayFlow Hotel.</h2>
+            <p></p>
+        </div>
+        <div class="row mb_30">
+            <div class="col-lg-3 col-sm-6">
+                <div class="accomodation_item text-center">
+                    <div class="hotel_img">
+                        <img src="{{ asset('royal-master/image/room20.jpg') }}" alt="PISCINE">
+                        <a ></a>
+                    </div>
+                    <a href="#"><h4 class="sec_h4">Sallle De Sport.</h4></a>
+                    <h5>500 FCFA<small>/Seance.</small></h5>
+                    <p><i class="fa fa-user"></i> 1 Personne</p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-6">
+                <div class="accomodation_item text-center">
+                    <div class="hotel_img">
+                        <img src="{{ asset('royal-master/image/room15.jpg') }}" alt="Chambre Double">
+                        <a ></a>
+                    </div>
+                    <a href="#"><h4 class="sec_h4">Cas-Crod + Cafe </h4></a>
+                    <h5>500 FCFA<small>/plat</small></h5>
+                    <p><i class="fa fa-users"></i> 1 Personnes</p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-6">
+                <div class="accomodation_item text-center">
+                    <div class="hotel_img">
+                        <img src="{{ asset('royal-master/image/room14.jpg') }}" alt="Suite Junior">
+                        <a ></a>
+                    </div>
+                    <a href="#"><h4 class="sec_h4">Casino </h4></a>
+                    <h5>1000 FCFA<small>/Joueur</small></h5>
+                    <p><i class="fa fa-users"></i> 1 Personnes</p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-6">
+                <div class="accomodation_item text-center">
+                    <div class="hotel_img">
+                        <img src="{{ asset('royal-master/image/room13.jpg') }}" alt="Suite Présidentielle">
+                        <a ></a>
+                    </div>
+                    <a href="#"><h4 class="sec_h4">Piscine</h4></a>
+                    <h5> GRATUIT<small>/Chaque jour</small></h5>
+                    <p><i class="fa fa-users"></i> Tous le Momde </p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+    <div class="accomodation_item text-center">
+        <div class="hotel_img">
+            <img src="{{ asset('royal-master/image/room23.png') }}" alt="Deluxe Connectée">
+            <a ></a>
+        </div>
+        <a href="#"><h4 class="sec_h4">Parking </h4></a>
+        <h5>GRATUIT <small>/Chaque Jour</small></h5>
+        <p><i class="fa fa-tablet"></i> </p>
+    </div>
+</div> 
+
+<div class="col-lg-3 col-sm-6">
+    <div class="accomodation_item text-center">
+        <div class="hotel_img">
+            <img src="{{ asset('royal-master/image/room24.png') }}" alt="Suite Familiale">
+            <a ></a>
+        </div>
+        <a href="#"><h4 class="sec_h4">Securite Assurer </h4></a>
+        <h5> <small> </small></h5>
+        <p><i class="fa fa-users"></i> </p>
+    </div>
+</div>
+
+<div class="col-lg-3 col-sm-6">
+    <div class="accomodation_item text-center">
+        <div class="hotel_img">
+            <img src="{{ asset('royal-master/image/room25.png') }}" alt="Business Smart">
+            <a ></a>
+        </div>
+        <a href="#"><h4 class="sec_h4">Wifi </h4></a>
+        <h5>GRATUIT<small> </small></h5>
+        <p><i class="fa fa-laptop"></i> </p>
+    </div>
+</div>
+
+<div class="col-lg-3 col-sm-6">
+    <div class="accomodation_item text-center">
+        <div class="hotel_img">
+            <img src="{{ asset('royal-master/image/room25.jpg') }}" alt="Suite Penthouse">
+            <a></a>
+        </div>
+        <a href="#"><h4 class="sec_h4">Vin Rouge Au Mellieur Prix</h4></a>
+        <h5> Variation <small>/En Fonction Du Vin</small></h5>
+        <p><i class="fa fa-star"></i> </p>
     </div>
 </div>
         </div>
