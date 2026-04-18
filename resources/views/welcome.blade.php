@@ -303,10 +303,31 @@
                 <p>&copy; 2026 <b>StayFlow</b> - Projet de fin de formation Localhost Academy.</p>
             </div>
         </footer>
+<script src="{{ asset('royal-master/js/jquery-3.2.1.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="{{ asset('royal-master/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('royal-master/js/stellar.js') }}"></script>
+{{-- custom.js désactivé car il bloque la navigation --}}
+{{-- <script src="{{ asset('royal-master/js/custom.js') }}"></script> --}}
 
-        <script src="{{ asset('royal-master/js/jquery-3.2.1.min.js') }}"></script>
-        <script src="{{ asset('royal-master/js/bootstrap.min.js') }}"></script>
-        <script src="{{ asset('royal-master/js/stellar.js') }}"></script>
-        <script src="{{ asset('royal-master/js/custom.js') }}"></script>
+<script>
+// Smooth scroll pour les ancres
+$(document).ready(function() {
+    $('a[href^="#"]').on('click', function(e) {
+        var href = $(this).attr('href');
+        if (href !== '#' && $(href).length) {
+            e.preventDefault();
+            $('html, body').animate({
+                scrollTop: $(href).offset().top - 70
+            }, 600);
+        }
+    });
+
+    // Navbar collapse sur mobile
+    $('.navbar-toggler').on('click', function() {
+        $('#navbarSupportedContent').toggleClass('show');
+    });
+});
+</script>
     </body>
 </html>
